@@ -32,10 +32,12 @@ ENV/
 .vscode/
 *.swp
 *.swo
-.DS_Store
 
-# Poetry
-poetry.lock
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
 
 # Docker
 .docker/

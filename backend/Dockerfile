@@ -30,6 +30,7 @@ COPY pyproject.toml poetry.lock ./
 
 # Copy application code for installation
 COPY app ./app
+COPY utils ./utils
 
 # Install dependencies and project
 RUN poetry install --no-dev
@@ -42,7 +43,8 @@ ENV PYTHONFAULTHANDLER=1 \
     PYTHONUNBUFFERED=1 \
     PYTHONHASHSEED=random \
     PORT=8000 \
-    HOST=0.0.0.0
+    HOST=0.0.0.0 \
+    PYTHONPATH=/app
 
 # Install system dependencies required at runtime
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -57,6 +59,7 @@ WORKDIR /app
 # Copy virtual environment and application code
 COPY --from=builder /app/.venv /app/.venv
 COPY --chown=appuser:appuser app ./app
+COPY --chown=appuser:appuser utils ./utils
 
 # Switch to non-root user
 USER appuser

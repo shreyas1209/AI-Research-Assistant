@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "AI-Driven-Research-Assistant backend"
 authors = ["Shreyas Sesham"]
 readme = "README.md"
-packages = [{include = "app"}]
+packages = [
+    { include = "app" }
+]
 
 [tool.poetry.dependencies]
 python = ">=3.11"
