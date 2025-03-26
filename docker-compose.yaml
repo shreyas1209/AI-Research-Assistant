@@ -11,9 +11,13 @@ services:
       - PORT=${PORT:-8000}
       - HOST=0.0.0.0
       - ENVIRONMENT=${ENVIRONMENT:-production}
+      - BASE_URL=${BASE_URL:-http://localhost:8000}
+      - ARXIV_URL=${ARXIV_URL:-http://export.arxiv.org/api/query}
       # Add other environment variables as needed
       # - DATABASE_URL=
       # - API_KEY=
+    env_file:
+      - ./backend/.env
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]

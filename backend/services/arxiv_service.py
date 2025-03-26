@@ -1,12 +1,12 @@
-from backend.config.settings import get_settings
+from config.settings import get_settings
 import httpx
 from typing import Dict, Any, List
-from backend.utils.logger import get_logger
-from backend.utils.async_retry import async_retry
+from utils.logger import get_logger
+from utils.async_retry import async_retry
 import asyncio
 import xml.etree.ElementTree as ET
 from datetime import datetime
-from backend.models.research_paper import ResearchPaper
+from models.research_paper import ResearchPaper
 
 logger = get_logger(__name__)
 settings = get_settings()
@@ -37,14 +37,14 @@ class ArxivService:
         await self._client.aclose()
     
     @async_retry(retries=3, delay=1.0, backoff=2.0, exceptions=(httpx.HTTPError, asyncio.TimeoutError))
-    async def search_papers(
+    async def fetch_papers(
         self,
         query: str,
         max_results: int = 10,
         sort_by: str = "submittedDate",
         sort_order: str = "descending"
     ) -> List[ResearchPaper]:
-        """Search for papers on ArXiv with retry logic.
+        """Fetch papers from ArXiv with retry logic.
         
         Args:
             query: Search query string

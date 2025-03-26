@@ -31,6 +31,11 @@ COPY pyproject.toml poetry.lock ./
 # Copy application code for installation
 COPY app ./app
 COPY utils ./utils
+COPY routers ./routers
+COPY services ./services
+COPY models ./models
+COPY api_models ./api_models
+COPY config ./config
 
 # Install dependencies and project
 RUN poetry install --no-dev
@@ -60,6 +65,11 @@ WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 COPY --chown=appuser:appuser app ./app
 COPY --chown=appuser:appuser utils ./utils
+COPY --chown=appuser:appuser routers ./routers
+COPY --chown=appuser:appuser services ./services
+COPY --chown=appuser:appuser models ./models
+COPY --chown=appuser:appuser api_models ./api_models
+COPY --chown=appuser:appuser config ./config
 
 # Switch to non-root user
 USER appuser
